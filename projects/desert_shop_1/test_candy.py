@@ -19,8 +19,8 @@ def test_candy_getters():
   candy = Candy('Gushers', 2.0, 4.0)
     
   assert candy.name == 'Gushers'
-  assert candy._candy_weight == 2.0
-  assert candy._price_per_pound == 4.0
+  assert candy.candy_weight == 2.0
+  assert candy.price_per_pound == 4.0
     
 def test_candy_setters():
   candy = Candy('Gushers')
@@ -29,6 +29,6 @@ def test_candy_setters():
   candy.candy_weight = 3.0
   candy.price_per_pound = 5.0
     
-  assert candy.name == 'KitKat'
+  assert candy._name == 'KitKat'
   assert candy._candy_weight == 3.0
   assert candy._price_per_pound == 5.0

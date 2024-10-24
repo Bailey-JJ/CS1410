@@ -4,8 +4,8 @@ class IceCream(DesertItem):
   '''
   Takes parameters name, scoop_count, and price_per_scoop
   '''
-  def __init__(self, name, scoop_count = 0, price_per_scoop = 0.0):
-    super().__init__(self, name)
+  def __init__(self, name = '', scoop_count = 0, price_per_scoop = 0.0):
+    super().__init__(name)
     self._scoop_count = scoop_count
     self._price_per_scoop = price_per_scoop
     

@@ -4,8 +4,8 @@ class Candy(DesertItem):
   '''
   Takes parameters name, candy_weight, and price_per_pound
   '''
-  def __init__(self, name, candy_weight = 0.0, price_per_pound = 0.0):
-    super().__init__(self, name)
+  def __init__(self, name = '', candy_weight = 0.0, price_per_pound = 0.0):
+    super().__init__(name)
     self._candy_weight = candy_weight
     self._price_per_pound = price_per_pound
     

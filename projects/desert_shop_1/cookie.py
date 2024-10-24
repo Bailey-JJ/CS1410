@@ -4,8 +4,8 @@ class Cookie(DesertItem):
   '''
   Takes parameters name, cookie_quantity, and price_per_dozen
   '''
-  def __init__(self, name, cookie_quantity = 0, price_per_dozen = 0.0):
-    super().__init__(self, name)
+  def __init__(self, name = '', cookie_quantity = 0, price_per_dozen = 0.0):
+    super().__init__(name)
     self._cookie_quantity = cookie_quantity
     self._price_per_dozen = price_per_dozen
     

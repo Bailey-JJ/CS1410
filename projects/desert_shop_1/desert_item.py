@@ -2,7 +2,7 @@ class DesertItem:
   '''
   Takes one parameter called 'name'.
   '''
-  def __init__(self, name):
+  def __init__(self, name = ''):
     self._name = name
 
   @property

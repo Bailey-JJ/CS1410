@@ -4,8 +4,8 @@ class Sundae(IceCream):
   '''
   Takes parameters name, scoop_count, and price_per_scoop, topping_name, and topping_price
   '''
-  def __init__(self, name, scoop_count = 0, price_per_scoop = 0, topping_name = '', topping_price = 0.0):
-    super().__init__(self, name, scoop_count, price_per_scoop)
+  def __init__(self, name = '', scoop_count = 0, price_per_scoop = 0, topping_name = '', topping_price = 0.0):
+    super().__init__(name, scoop_count, price_per_scoop)
     self._topping_name = topping_name
     self._topping_price = topping_price
     

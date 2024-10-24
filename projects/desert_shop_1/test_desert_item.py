@@ -23,4 +23,4 @@ def test_desertitem_setters():
     
   desert.name = 'KitKat'
     
-  assert desert.name == 'KitKat'
+  assert desert._name == 'KitKat'
