@@ -37,14 +37,12 @@ class Order:
   def __str__(self):
     output = ''
     data = [[ "Name" , "Quantity", "Unit Price", "Cost", "Tax" ]]
-    #receipt_list = [[str(item).strip(',')] for item in order._order]
 
     for item in self._order:
       item_line = str(item).split('\n')
       for line in item_line:
         receipt_list = line.split(", ")
         data.append(receipt_list)
-
 
     data.append([ "Order Subtotal", "", "", f"${self.order_cost():.2f}", f"${self.order_tax():.2f}"])
     data.append([ "Order Total", "", "", "", f"${(self.order_cost() + self.order_tax()):.2f}"])

@@ -12,6 +12,20 @@ from order import Order
 from desert_item import DesertItem
 from receipt import make_receipt
 
+def validate(question, warning, type):
+  while (True): 
+    try:
+      if type == 'int':
+        answer = int(input(question))
+      elif type == 'float':
+        answer = float(input(question))
+      else:
+        print('Error. Invalid type.')
+        return None
+      return answer
+    except:
+      print(warning + '\n')
+
 class DesertShop():
   '''
   Defines the DesertShop class. Contains functions necessary to
@@ -22,35 +36,9 @@ class DesertShop():
     '''
     Validates user input for the Candy class.
     '''
-    while True:
-      try:
-        name = input("Enter the type of candy: ")
-        if name.replace(" ", "").isalpha():
-          break
-        else:
-          print("Enter a valid Candy name.")
-      except ValueError:
-        print("Enter a valid Candy name.")
-
-    while True:
-      try:
-        weight = float(input("Enter the candy weight (in pounds): "))
-        if weight >= 0:
-          break
-        else:
-          print("Weight must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for weight.")
-    
-    while True:
-      try:
-        price = float(input("Enter the candy price per pound: "))
-        if price >= 0:
-          break
-        else:
-          print("Price must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for price.")
+    name = input("Enter the type of candy: ")
+    weight = validate('Enter the candy weight (in lbs)', 'Weight must be positive number.', 'float')
+    price = validate('Enter the candy price per pound: ', 'Price must be a positive number.', 'float')
 
     return Candy(name, weight, price)
 
@@ -59,35 +47,9 @@ class DesertShop():
     '''
     Validates user input for the Cookie class.
     '''
-    while True:
-      try:
-        name = input("Enter the type of Cookie: ")
-        if name.replace(" ", "").isalpha():
-          break
-        else:
-          print("Enter a valid Cookie name.")
-      except ValueError:
-        print("Enter a valid Cookie name.")
-
-    while True:
-      try:
-        quantity = int(input("Enter the quantity purchased: "))
-        if quantity >= 0:
-          break
-        else:
-          print("Quantity must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for quantity.")
-    
-    while True:
-      try:
-        price = float(input("Enter the price per dozen: "))
-        if price >= 0:
-          break
-        else:
-          print("Price must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for price.")
+    name = input("Enter the type of Cookie: ")
+    quantity = validate('Enter the quantity purchased: ', 'Quantity must be a positive number.', 'int')
+    price = validate('Enter the price per dozen: ', 'Price must be a positive number.', 'float')
 
     return Cookie(name, quantity, price)
 
@@ -96,35 +58,9 @@ class DesertShop():
     '''
     Validates user input for the IceCream class.
     '''
-    while True:
-      try:
-        name = input("Enter the type of Icecream: ")
-        if name.replace(" ", "").isalpha():
-          break
-        else:
-          print("Enter a valid Icecream name.")
-      except ValueError:
-        print("Enter a valid Icecream name.")
-
-    while True:
-      try:
-        scoops = int(input("Enter the number of scoops: "))
-        if scoops >= 0:
-          break
-        else:
-          print("Number of scoops must be a positive number.")
-      except ValueError:
-        print("Enter valid number of scoops.")
-    
-    while True:
-      try:
-        price = float(input("Enter the price per scoop: "))
-        if price >= 0:
-          break
-        else:
-          print("Price must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for price.")
+    name = input("Enter the type of Icecream: ")
+    scoops = validate('Enter the number of scoops: ', 'Number of scoops must be a positive number.', 'int')
+    price = validate('Enter the price per scoop: ', 'Price must be a positive number.', 'float')
 
     return IceCream(name, scoops, price)
   
@@ -133,55 +69,11 @@ class DesertShop():
     '''
     Validates user input for the Sundae class.
     '''
-    while True:
-      try:
-        name = input("Enter the type of Icecream: ")
-        if name.replace(" ", "").isalpha():
-          break
-        else:
-          print("Enter a valid Icecream name.")
-      except ValueError:
-        print("Enter a valid Icecream name.")
-
-    while True:
-      try:
-        scoops = int(input("Enter the number of scoops: "))
-        if scoops >= 0:
-          break
-        else:
-          print("Number of scoops must be a positive number.")
-      except ValueError:
-        print("Enter valid number of scoops.")
-    
-    while True:
-      try:
-        scoop_price = float(input("Enter the price per scoop: "))
-        if scoop_price >= 0:
-          break
-        else:
-          print("Price must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for price.")
-
-    while True:
-      try:
-        topping = input("Enter the topping: ")
-        if topping.replace(" ", "").isalpha():
-          break
-        else:
-          print("Enter a valid topping name.")
-      except ValueError:
-        print("Enter a valid topping name.")
-
-    while True:
-      try:
-        price_of_topping = float(input("Enter the price for the topping: "))
-        if price_of_topping >= 0:
-          break
-        else:
-          print("Price must be a positive number.")
-      except ValueError:
-        print("Enter valid numbers for price.")
+    name = input("Enter the type of Icecream: ")
+    scoops = validate('Enter the number of scoops: ', 'Number of scoops must be a positive number.', 'int')
+    scoop_price = validate('Enter the price per scoop: ', 'Price must be a positive number.', 'float')
+    topping = input("Enter the topping: ")
+    price_of_topping = validate('Enter the price for the topping: ', 'Price must be a positive number.', 'float')
 
     return Sundae(name, scoops, scoop_price, topping, price_of_topping)
   
