@@ -15,6 +15,7 @@ def test_icecream_init_nominal():
   assert icecream._scoop_count == 2
   assert icecream._price_per_scoop == 4.0  
     
+  
 def test_icecream_getters():
   icecream = IceCream('Chocolate', 2, 4.0)
     
@@ -22,6 +23,7 @@ def test_icecream_getters():
   assert icecream._scoop_count == 2
   assert icecream._price_per_scoop == 4.0
     
+  
 def test_icecream_setters():
   icecream = IceCream('Chocolate')
     
