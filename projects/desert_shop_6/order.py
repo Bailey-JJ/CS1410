@@ -18,13 +18,6 @@ class Order:
   def __init__(self):
     self._order = []
 
-  def __str__(self):
-    '''
-    Overrides the __str__ method and prints a receipt from an order input.
-    '''
-    items = [[print(item)] for item in self._order]
-    return f'{items}\nOrder Subtotal: ${self.order_cost():.2f}\nOrder Tax: ${self.order_tax():.2f}\nOrder Total: ${self.order_cost() + self.order_tax():.2f}'
-
   def add(self, item):
     self._order.append(item)
 
@@ -35,38 +28,38 @@ class Order:
     return [item._name for item in self._order]
 
   def __str__(self):
+    '''
+    Takes values from self._order and prints receipt to the terminal and a pdf.
+    '''
     output = '----------------------------------------------Receipt-------------------------------\n'
 
-    data = [[ "Name", "Packaging", "Quantity", "Unit Price", "Cost", "Tax" ]]
+    data = [[ "Name", "Quantity", "Unit Price", "Cost", "Tax" ]]
 
     for item in self._order:
       item_line = str(item).split('\n')
       for line in item_line:
-        if len(line.split(", ")) > 6:
+        if len(line.split(", ")) > 5:
           receipt_list = line.split(", ")
-          name, package, quantity, price, cost, tax, topping, topping_qty, topping_price, _, _, _ = line.split(", ")
-          output += f"{name} ({package})\n"
+          name, quantity, price, cost, tax, topping, topping_qty, topping_price = line.split(", ")
+          output += f"{name}\n"
           size = f"      {quantity} @ {price}\n"
           number = f"      {topping} @ {topping_price}"
           output += f"{size}{number:45}           {cost:>4}           [Tax: {tax:>4}]\n"
 
-          #del receipt_list[1]
-          data.append(receipt_list[0:6])
-          topping_details = [receipt_list[6], _, receipt_list[7], receipt_list[8]]
-          data.append(topping_details)
+          data.append(receipt_list[0:5])
+          data.append(receipt_list[5:8])
         else:
           receipt_list = line.split(", ")
-          name, package, quantity, price, cost, tax = line.split(", ")
-          output += f"{name} ({package})\n"
+          name, quantity, price, cost, tax = line.split(", ")
+          output += f"{name}\n"
           size = f"      {quantity} @ {price}:"
           output += f"{size:45}           {cost:>4}           [Tax: {tax:>4}]\n"
 
-          #del receipt_list[1]
           data.append(receipt_list)
 
-    data.append([ "Order Subtotal", "", "", "", f"${self.order_cost():.2f}", f"${self.order_tax():.2f}"])
-    data.append([ "Order Total", "", "", "", "", f"${(self.order_cost() + self.order_tax()):.2f}"])
-    data.append([ "Total Items in the Order", "", "", "", "", str(len(self._order))])
+    data.append([ "Order Subtotal", "", "", f"${self.order_cost():.2f}", f"${self.order_tax():.2f}"])
+    data.append([ "Order Total", "", "", "", f"${(self.order_cost() + self.order_tax()):.2f}"])
+    data.append([ "Total Items in the Order", "", "", "", str(len(self._order))])
 
     output += '-------------------------------------------------------------------------------------\n'
     output += f'Total number of items in order: {len(self._order)}\n'

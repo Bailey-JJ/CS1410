@@ -18,13 +18,6 @@ class Order:
   def __init__(self):
     self._order = []
 
-  def __str__(self):
-    '''
-    Overrides the __str__ method and prints a receipt from an order input.
-    '''
-    items = [[print(item)] for item in self._order]
-    return f'{items}\nOrder Subtotal: ${self.order_cost():.2f}\nOrder Tax: ${self.order_tax():.2f}\nOrder Total: ${self.order_cost() + self.order_tax():.2f}'
-
   def add(self, item):
     self._order.append(item)
 
@@ -36,20 +29,27 @@ class Order:
 
   def __str__(self):
     output = ''
-    data = [[ "Name" , "Quantity", "Unit Price", "Cost", "Tax" ]]
+    data = [[ "Name", "Quantity", "Unit Price", "Cost", "Tax" ]]
 
     for item in self._order:
       item_line = str(item).split('\n')
       for line in item_line:
-        receipt_list = line.split(", ")
-        data.append(receipt_list)
+        if len(line.split(", ")) > 5:
+          receipt_list = line.split(", ")
+
+          data.append(receipt_list[:5])
+          data.append(receipt_list[5:])
+        else:
+          receipt_list = line.split(", ")
+
+          data.append(receipt_list)
 
     data.append([ "Order Subtotal", "", "", f"${self.order_cost():.2f}", f"${self.order_tax():.2f}"])
     data.append([ "Order Total", "", "", "", f"${(self.order_cost() + self.order_tax()):.2f}"])
     data.append([ "Total Items in the Order", "", "", "", str(len(self._order))])
 
     make_receipt(data)
-
+    
     for item in data:
       output += ', '.join(item) + '\n'
     return output

@@ -9,10 +9,11 @@ class Candy(DesertItem):
   '''
   Takes parameters name, candy_weight, and price_per_pound
   '''
-  def __init__(self, name = '', candy_weight = 0.0, price_per_pound = 0.0, packaging = 'Bag'):
-    super().__init__(name, packaging)
+  def __init__(self, name = '', candy_weight = 0.0, price_per_pound = 0.0):
+    super().__init__(name)
     self._candy_weight = candy_weight
     self._price_per_pound = price_per_pound
+    self._packaging = 'Bag'
     
   @property
   def candy_weight(self):
@@ -35,4 +36,4 @@ class Candy(DesertItem):
     return round(cost, 2)
 
   def __str__(self):
-    return f'{self._name}, {self._packaging}, {self._candy_weight:.2f}lbs, ${self._price_per_pound:.2f}/lb, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'
+    return f'{self._name} ({self._packaging}), {self._candy_weight:.2f}lbs, ${self._price_per_pound:.2f}/lb, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'

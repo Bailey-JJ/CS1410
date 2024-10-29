@@ -11,10 +11,11 @@ class DesertItem(ABC, Packaging):
   Takes one parameter called 'name'.
   '''
 
-  def __init__(self, name = '', packaging = ''):
-    Packaging.__init__(self, packaging)
+  def __init__(self, name = ''):
+    super().__init__(self)
     self._name = name
     self._tax_percent = 7.25
+    self._packaging = None
 
   @property
   def name(self):

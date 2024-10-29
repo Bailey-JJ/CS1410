@@ -9,10 +9,11 @@ class IceCream(DesertItem):
   '''
   Takes parameters name, scoop_count, and price_per_scoop
   '''
-  def __init__(self, name = '', scoop_count = 0, price_per_scoop = 0.0, packaging = 'Bowl'):
-    super().__init__(name, packaging)
+  def __init__(self, name = '', scoop_count = 0, price_per_scoop = 0.0):
+    super().__init__(name)
     self._scoop_count = scoop_count
     self._price_per_scoop = price_per_scoop
+    self._packaging = 'Bowl'
     
   @property
   def scoop_count(self):
@@ -35,4 +36,4 @@ class IceCream(DesertItem):
     return round(cost, 2)
 
   def __str__(self):
-    return f'{self._name} Ice Cream, {self._packaging}, {self._scoop_count} scoop(s), ${self._price_per_scoop:.2f}/scoop, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'
+    return f'{self._name} Ice Cream ({self._packaging}), {self._scoop_count} scoop(s), ${self._price_per_scoop:.2f}/scoop, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'

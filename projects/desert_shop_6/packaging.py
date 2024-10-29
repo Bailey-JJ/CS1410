@@ -3,10 +3,7 @@ Author Name: Bailey Jannuzzi
 Module: packaging.py
 Description: Describes the Protocol class 'Packaging'.
 '''
+from typing import Protocol
 
-class Packaging:
-  '''
-  '''
-  
-  def __init__(self, packaging = ''):
-    self._packaging = packaging
+class Packaging(Protocol):
+  packaging: str

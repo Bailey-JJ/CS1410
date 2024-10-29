@@ -9,10 +9,11 @@ class Cookie(DesertItem):
   '''
   Takes parameters name, cookie_quantity, and price_per_dozen
   '''
-  def __init__(self, name = '', cookie_quantity = 0, price_per_dozen = 0.0, packaging = 'Box'):
-    super().__init__(name, packaging)
+  def __init__(self, name = '', cookie_quantity = 0, price_per_dozen = 0.0):
+    super().__init__(name)
     self._cookie_quantity = cookie_quantity
     self._price_per_dozen = price_per_dozen
+    self._packaging = 'Box'
     
   @property
   def cookie_quantity(self):
@@ -35,4 +36,4 @@ class Cookie(DesertItem):
     return round(cost, 2)
 
   def __str__(self):
-    return f'{self._name} Cookies, {self._packaging}, {self._cookie_quantity} cookie(s), ${self._price_per_dozen:.2f}/dozen, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'
+    return f'{self._name} Cookies ({self._packaging}), {self._cookie_quantity} cookie(s), ${self._price_per_dozen:.2f}/dozen, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'

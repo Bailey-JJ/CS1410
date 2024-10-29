@@ -35,4 +35,4 @@ class Cookie(DesertItem):
     return round(cost, 2)
 
   def __str__(self):
-    return f'{self._name}, {self._cookie_quantity} cookie(s), ${self._price_per_dozen:.2f}/dozen, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'
+    return f'{self._name} Cookies, {self._cookie_quantity} cookie(s), ${self._price_per_dozen:.2f}/dozen, ${self.calculate_cost():.2f}, ${self.calculate_tax():.2f}'
