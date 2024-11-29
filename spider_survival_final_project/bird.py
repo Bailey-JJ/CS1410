@@ -6,6 +6,7 @@ Description: Describes the Concrete Bird child class. Inherits from Organism par
 
 from organism import Organism
 from typing import Tuple
+import pygame
 
 class Bird(Organism):
     '''
@@ -16,8 +17,9 @@ class Bird(Organism):
                       range of a spider, and user 'clicks' touchpad/mouse.
     '''
     #Constructor
-    def __init__(self, position: Tuple[int, int], shape: str, color: Tuple[int, int, int]):
-        super().__init__(self, position, shape, color)
+    def __init__(self, position = (60, 200), shape = pygame.image.load("transparent_bird_image.png")):
+        super().__init__(position)
+        self._shape = shape
     #End of constructor
     
     #Methods

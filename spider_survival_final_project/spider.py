@@ -6,6 +6,7 @@ Description: Describes the Concrete Spider child class. Inherits from Organism p
 
 from organism import Organism
 from typing import Tuple
+import pygame
 
 class Spider(Organism):
     '''
@@ -21,33 +22,51 @@ class Spider(Organism):
         die(): When bird 'eats' a spider, the spider will be removed from display.
     '''
     
-    self._starting_pop = 5
-    self._current_pop = 
+    starting_pop = 5
+    current_pop = 0
     
     #Constructor
-    def __init__(self, position: Tuple[int, int], shape: str, color: Tuple[int, int, int], reaction_speed: int, speed: int):
-        super().__init__(self, position, shape, color)
+    def __init__(self, position: Tuple[int, int], color: pygame.Surface, reaction_speed: int, speed: int):
+        super().__init__(position)
         self._reaction_speed = reaction_speed
+        self._color = color
         self._speed = speed
+        Spider.current_pop += 1
     #End of constructor
     
     #Methods
     def move(self):
         '''
         '''
-        pass
+        newx = self._position[0] + self._speed[0]
+        newy = self._position[1] + self._speed[1]
+        
+        if newx < 50 or newx > 600 - self.color.get_width():
+            self._speed = (-self._speed[0], self._speed[1])  
+        else:
+            self._position = (newx, self._position[1])
+
+        if newy < 250 or newy > 550 - self.color.get_height():
+            self._speed = (self._speed[0], -self._speed[1])  
+        else:
+            self._position = (self._position[0], newy)
+        
     
+    def alive(self, surface):
+        surface.blit(self._color, self._position)
+        
+        
     def reproduce(self):
         '''
         '''
-        pass
+        Spider.current_pop += 1
     
     def pop(self):
         '''
         '''
-        pass
+        return Spider.current_pop
     
-    def evade(self):
+    def evade(self, bird_position):
         '''
         '''
         pass
@@ -55,4 +74,4 @@ class Spider(Organism):
     def die(self):
         '''
         '''
-        pass
+        Spider.current_pop -= 1

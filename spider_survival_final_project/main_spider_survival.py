@@ -3,23 +3,46 @@ Author Name: Bailey Jannuzzi
 Module: main_spider_survival.py
 Description: Initializes Game UI and Environment, updates game, and then terminates game.
 """
-
+import pygame
+import random
 from environment import Environment
 from game_ui import GameUI
 from spider import Spider
 from bird import Bird
 
 def main():
-    #Initialize Pygame and game objects
+    pygame.init()
     
-    #Main game loop
+    gameui = GameUI()
     
-        #Update game_ui and environment
+    screen, game_screen, population_display = gameui.setup_display()
     
-        #Refreshing display
+    
+    environment = Environment()
+    environment.initialize_population_counts()
+    
+
+    # Main loop
+    running = True
+    while running:
+        # Event handling, gets all events from the event queue
+    
         
-    #End game
-    pass
+        for event in pygame.event.get():
+            # Close the window when the user clicks the close button
+            if event.type == pygame.QUIT:
+                running = False
+            
+            gameui.draw_ui(screen, game_screen)
+            
+            for spider in environment._spiders:
+                screen.blit(spider._color, spider._position)
+    
+            screen.blit(environment._bird._shape, environment._bird._position)
+    
+            pygame.display.flip()
+    # Quit Pygame
+    pygame.quit()
 
 
 if __name__ == "__main__":
