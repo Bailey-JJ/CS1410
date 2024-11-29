@@ -2,6 +2,8 @@
 Author Name: Bailey Jannuzzi
 Module: game_ui.py
 Description: 
+
+    Possible changes: Create functions to create objects, to avoid repeating code? Need to use if statements and loops in code.
 """
 
 import pygame

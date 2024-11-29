@@ -2,6 +2,8 @@
 Author Name: Bailey Jannuzzi
 Module: main_spider_survival.py
 Description: Initializes Game UI and Environment, updates game, and then terminates game.
+
+    Possible changes: Create functions to create objects, to avoid repeating code? Need to use if statements and loops in code
 """
 import pygame
 import random
