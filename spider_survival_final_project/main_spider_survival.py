@@ -15,6 +15,8 @@ from bird import Bird
 def main():
     pygame.init()
     
+    bird = Bird()
+    
     gameui = GameUI()
     
     screen, game_screen, population_display = gameui.setup_display()
@@ -23,26 +25,34 @@ def main():
     environment = Environment()
     environment.initialize_population_counts()
     
+    clock = pygame.time.Clock()
 
     # Main loop
     running = True
     while running:
         # Event handling, gets all events from the event queue
-    
+        clock.tick(50)
         
         for event in pygame.event.get():
             # Close the window when the user clicks the close button
             if event.type == pygame.QUIT:
                 running = False
+                
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                environment.remove_spiders(bird)
+
+        gameui.draw_ui(screen, game_screen)
             
-            gameui.draw_ui(screen, game_screen)
+        bird.move(screen)
+        
+        for spider in environment._spiders:
+            spider.move()
+            spider.alive(screen)
+
+        
+        
+        pygame.display.flip()
             
-            for spider in environment._spiders:
-                screen.blit(spider._color, spider._position)
-    
-            screen.blit(environment._bird._shape, environment._bird._position)
-    
-            pygame.display.flip()
     # Quit Pygame
     pygame.quit()
 

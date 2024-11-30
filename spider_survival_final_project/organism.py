@@ -28,7 +28,7 @@ class Organism(ABC):
         '''
         pass
     
-    def display(self):
+    def get_position(self):
         '''
         '''
         pass

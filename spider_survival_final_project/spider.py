@@ -7,6 +7,7 @@ Description: Describes the Concrete Spider child class. Inherits from Organism p
 from organism import Organism
 from typing import Tuple
 import pygame
+import random
 
 class Spider(Organism):
     '''
@@ -31,6 +32,7 @@ class Spider(Organism):
         self._reaction_speed = reaction_speed
         self._color = color
         self._speed = speed
+        self._direction = (random.choice([-1, 1]), random.choice([-1, 1]))
         Spider.current_pop += 1
     #End of constructor
     
@@ -38,18 +40,18 @@ class Spider(Organism):
     def move(self):
         '''
         '''
-        newx = self._position[0] + self._speed[0]
-        newy = self._position[1] + self._speed[1]
+        dx, dy = self._direction
+        x = self._position[0] + dx * self._speed
+        y = self._position[1] + dy * self._speed
         
-        if newx < 50 or newx > 600 - self.color.get_width():
-            self._speed = (-self._speed[0], self._speed[1])  
-        else:
-            self._position = (newx, self._position[1])
+        if x < 50 or x > 550:
+            dx *= -1
 
-        if newy < 250 or newy > 550 - self.color.get_height():
-            self._speed = (self._speed[0], -self._speed[1])  
-        else:
-            self._position = (self._position[0], newy)
+        if y < 250 or y > 550:
+            dy *= -1
+            
+        self._direction = (dx, dy)
+        self._position = (x, y)
         
     
     def alive(self, surface):
@@ -61,10 +63,16 @@ class Spider(Organism):
         '''
         Spider.current_pop += 1
     
-    def pop(self):
+    def get_position(self):
         '''
         '''
-        return Spider.current_pop
+        width = self._color.get_width()
+        height = self._color.get_height()
+        
+        x = self._position[0] + width // 2
+        y = self._position[1] + height // 2
+
+        return x, y
     
     def evade(self, bird_position):
         '''

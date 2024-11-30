@@ -23,12 +23,34 @@ class Bird(Organism):
     #End of constructor
     
     #Methods
-    def move(self):
+    def move(self, screen):
         '''
         '''
-        pass
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        
+        bird_x = mouse_x - self._shape.get_width() // 2
+        bird_y = mouse_y - self._shape.get_height() // 2
+        
+        self._position = (bird_x, bird_y)
+        
+        screen.blit(self._shape, self._position)
+
+
+    def get_position(self):
+        '''
+        '''
+        width = self._shape.get_width()
+        height = self._shape.get_height()
+        
+        x = self._position[0] + width // 2
+        y = self._position[1] + height // 2
+
+        return x, y
     
-    def eat_spider(self):
-        '''
-        '''
-        pass
+
+        
+        
+        
+        
+        
+        
