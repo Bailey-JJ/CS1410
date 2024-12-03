@@ -18,15 +18,14 @@ class Bird(Organism):
     '''
     #Constructor
     def __init__(self, position = (60, 200), shape = pygame.image.load("transparent_bird_image.png")):
-        super().__init__(position)
-        self._shape = shape
+        super().__init__(position, shape)
     #End of constructor
     
     #Methods
-    def move(self, screen):
+    def move(self, screen, mouse_position: Tuple[int, int]):
         '''
         '''
-        mouse_x, mouse_y = pygame.mouse.get_pos()
+        mouse_x, mouse_y = mouse_position
         
         bird_x = mouse_x - self._shape.get_width() // 2
         bird_y = mouse_y - self._shape.get_height() // 2

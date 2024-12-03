@@ -6,7 +6,6 @@ Description: Describes the Abstract Organism parent class
 
 from abc import ABC, abstractmethod
 from typing import Tuple
-import pygame
 
 class Organism(ABC):
     '''
@@ -17,8 +16,9 @@ class Organism(ABC):
         display(): Sets an organism as a visible object to user.
     '''
     #Constructor
-    def __init__(self, position: Tuple[int, int]):
+    def __init__(self, position: Tuple[int, int], shape):
         self._position = position
+        self._shape = shape
     #End of constructor
     
     #Methods
