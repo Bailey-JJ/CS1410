@@ -11,8 +11,11 @@ class Environment():
     '''
     Contains game environment's background color, calls 3 different Spider classes, and calls a Bird class.. 
     Contains methods:
-        update(): Updates environment features.
-        render(): 
+        initialize_population_counts()
+        remove_spiders()
+        repopulate()
+        display_game_over()
+        display_game_stats()
     '''
     
     #Constructor
@@ -40,11 +43,11 @@ class Environment():
 
         # Create spiders for each color
         for _ in range(5):
-            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1))
+            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
             self.population_counts['red'] += 1
-            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.5))
+            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))
             self.population_counts['green'] += 1
-            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 0.5))
+            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 1.5))
             self.population_counts['blue'] += 1
  
 
@@ -88,13 +91,13 @@ class Environment():
                 new_spiders = 1 * (count // 2)
                 for _ in range(new_spiders):
                     if color == 'red':
-                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1))
+                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
                         self.population_counts['red'] += 1
                     elif color == 'green':
-                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 2))
+                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))
                         self.population_counts['green'] += 1
                     else:
-                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 0.5))
+                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 1.5))
                         self.population_counts['blue'] += 1
             else:
                 return ''
@@ -103,7 +106,6 @@ class Environment():
     def display_game_over(self, screen):
         font = pygame.font.SysFont('consolas', 32)
         font2 = pygame.font.SysFont('consolas', 20)
-        font3 = pygame.font.SysFont('consolas', 15)
         
         total_dead = len(self._dead_spiders)
         red_dead = self.dead_spiders_count['red']
@@ -119,7 +121,7 @@ class Environment():
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(225, 230, 450, 350), 2, 10, 10, 10, 10, 10)
         screen.blit(end_game, endRect.center)
 
-        #Displaying Game Stats overtop Game Over Square
+        #Displaying Game Stats on the Game Over Square
         stats_text = font2.render(f"Total Spiders Eaten: {total_dead}", True, (0, 0, 0))
         screen.blit(stats_text, (320, 330)) 
         stats_text2 = font2.render(f"  Red Spiders Eaten: {red_dead}", True, (0, 0, 0))
@@ -131,14 +133,13 @@ class Environment():
         
     
     def display_current_stats(self, screen):
-        font = pygame.font.SysFont('consolas', 32)
         font2 = pygame.font.SysFont('consolas', 20)
-        font3 = pygame.font.SysFont('consolas', 15)
         
         red_alive = self.population_counts['red']
         blue_alive = self.population_counts['blue']
         green_alive = self.population_counts['green']
         
+        #Displaying current game stats on spider populations
         pop_text = font2.render(f"Red Spiders: {red_alive}", True, (0, 0, 0))
         screen.blit(pop_text, (630, 180)) 
         pop_text2 = font2.render(f"Green Spiders: {green_alive}", True, (0, 0, 0))

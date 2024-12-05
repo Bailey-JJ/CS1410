@@ -7,35 +7,28 @@ Description:
 """
 
 import pygame
-from environment import Environment
 
 class GameUI():
     '''
-    Tracks the number of spiders eaten, the timer countdown, the final spider populations for each color,
-    and calls the Environment Class. 
+    Draws the basic layout pieces of the game.
     Contains methods:
-        
+        draw_ui()
     '''
     pygame.init()
     font = pygame.font.SysFont('consolas', 32)
     font2 = pygame.font.SysFont('consolas', 20)
     font3 = pygame.font.SysFont('consolas', 15)
-    
-    #Constructor
-    def __init__(self):
-        #self._environment = environment
-        self._timer_limit = 60
-        self._start_time = pygame.time.get_ticks()
 
-        
-    #End of constructor
     
     #Methods
     def draw_ui(self, screen, game_screen):
+        '''
+        Sets up the screen with the basic non-interactable elements.
+        '''
         
         screen.fill((255, 255, 255))
-        
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(48, 248, 554, 439), 2)
+
 
         #Choosing Background Color
         pygame.draw.rect(screen, (155, 191, 128), pygame.Rect(30, 110, 220, 50), 25, 10, 10, 10, 10, 10)
@@ -46,14 +39,13 @@ class GameUI():
         pygame.draw.rect(screen, (155, 191, 128), pygame.Rect(625, 75, 250, 50), 25, 10, 10, 10, 10, 10)
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 75, 250, 50), 2, 10, 10, 10, 10, 10)
 
-
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 140, 250, 200), 2) 
         
         
         #Spider Speed? Optional?
         pygame.draw.rect(screen, (155, 191, 128), pygame.Rect(625, 360, 250, 50), 25, 10, 10, 10, 10, 10) 
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 360, 250, 50), 2, 10, 10, 10, 10, 10)
-
+        
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 425, 250, 200), 2)
         
         

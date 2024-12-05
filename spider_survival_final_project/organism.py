@@ -11,9 +11,8 @@ class Organism(ABC):
     '''
     Abstract class. Contains an organism's position, shape, and color. 
     Contains methods:
-        move(): Abstract method that describes how an organism will move; either pre-determined or 
-                by user control.
-        display(): Sets an organism as a visible object to user.
+        move()
+        get_position()
     '''
     #Constructor
     def __init__(self, position: Tuple[int, int], shape):

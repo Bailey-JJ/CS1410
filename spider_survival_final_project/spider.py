@@ -12,53 +12,45 @@ import math
 
 class Spider(Organism):
     '''
-    Concrete class, takes parameters for a spider's position, shape, color, reaction speed, and movement speed. 
-    Contains class attributes:
-        starting_pop: int; Pre-defined number of spiders at start.
-        current_pop: int; Updates based on the number of not eaten spiders, and 'reproduces' accordingly.
+    Concrete class, takes parameters for a spider's position, shape, color, reaction speed, and movement speed.
     Contains methods:
-        move(): Concrete method that describes how a spider will move.
-        reproduce(): Updates the current_pop based on the number of spiders not eaten.
-        pop(): Getter and Setter for the spider population.
-        evade(): Describes movement based on reaction speed; based on user touchpad input, spiders will move away from bird.
-        die(): When bird 'eats' a spider, the spider will be removed from display.
+        move()
+        alive()
+        get_position()
     '''
     
     #Constructor
-    def __init__(self, position: Tuple[int, int], shape: pygame.Surface, color: str, speed: int):
+    def __init__(self, position: Tuple[int, int], shape: pygame.Surface, color: str, speed = None):
         super().__init__(position, shape)
-        self._reaction_speed = speed * 2
         self._color = color
         self._speed = speed
+        self._reaction_speed = self._speed * 1.5
         self._direction = (random.choice([-1, 1]), random.choice([-1, 1]))
     #End of constructor
     
     #Methods
     def move(self, bird_position):
         '''
+        Concrete method that describes how a spider will move, based randomly decided, with the ability to "evade" the bird using touchpad input.
         '''
         spider_x, spider_y = self._position
         
         if bird_position:
             bird_x, bird_y = bird_position
-            # Calculate distance to the bird
             distance_to_bird = math.sqrt((spider_x - bird_x)**2 + (spider_y - bird_y)**2)
     
-            if distance_to_bird <= 15:
-                # Evade logic: move away from the bird
+            if distance_to_bird <= 70:
+                #Evade logic: move away from the bird
                 dx = spider_x - bird_x
                 dy = spider_y - bird_y
     
-                # Normalize direction vector
-                if distance_to_bird > 0:  # Avoid division by zero
+                if distance_to_bird > 0:
                     dx /= distance_to_bird
                     dy /= distance_to_bird
     
-                # Adjust position based on reaction speed
                 newx = spider_x + dx * self._reaction_speed
                 newy = spider_y + dy * self._reaction_speed
             else:
-                # Normal movement logic if bird is not close
                 dx, dy = self._direction
                 newx = spider_x + dx * self._speed
                 newy = spider_y + dy * self._speed  
@@ -73,17 +65,20 @@ class Spider(Organism):
         elif newy > 645:
             newy = 250
     
-        # Update position and rect
         self._position = (newx, newy)
         
         
     
     def alive(self, surface):
+        '''
+        Displays spider onto game screen.
+        '''
         surface.blit(self._shape, self._position)
         
         
     def get_position(self):
         '''
+        Concrete method that finds the center coordinates of a spider image, and returns those coordinates.
         '''
         width = self._shape.get_width()
         height = self._shape.get_height()

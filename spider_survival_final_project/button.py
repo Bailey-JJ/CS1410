@@ -10,6 +10,9 @@ import pygame
 
 class Button():
     '''
+    Takes parameters for a spider's position, shape, color, reaction speed, and movement speed.
+    Contains methods:
+        
     '''
     
     def __init__(self, shape: str, color, circle_position: Tuple[int, int] = (0, 0), rect_position: Tuple[int, int, int, int] = (0, 0, 0, 0), radius = 0):
@@ -23,18 +26,16 @@ class Button():
         
         
     def change_background_color(self, game_screen):
+        '''
+        Updates the color of the game screen.
+        '''
         game_screen.fill(self._color)
-        
-        
-    def stop_start_game(self, game_is):
-        if game_is == "running":
-            return "paused"
-        elif game_is != "running":
-            return "running"
-        return game_is
     
     
     def draw_square_button(self, screen, text, text_cord: Tuple[int, int]):
+        '''
+        Draws square/rectangular buttons.
+        '''
         font2 = pygame.font.SysFont('consolas', 20)
         
         pygame.draw.rect(screen, self._color, self._rect, self._rect_fill, 10, 10, 10, 10, 10) 
@@ -48,13 +49,18 @@ class Button():
     
     
     def draw_circle_buttons(self, screen):
+        '''
+        Draws a circle shaped button.
+        '''
         pygame.draw.circle(screen, self._color, self._center, self._radius, self._radius)
         pygame.draw.circle(screen, (0, 0, 0), self._center, self._radius, 2)
     
     
     def check_click(self, mouse_position):
-        
-        if self._shape == 'rect':
+        '''
+        Checks that the mouse's position overlaps with a button's area.
+        '''
+        if self._shape == 'rect' or self._shape == 'end':
             x, y, width, height = self._position
             if x <= mouse_position[0] <= x + width and y <= mouse_position[1] <= y + height:
                 return True
@@ -70,6 +76,7 @@ class Button():
     
     def handle_event(self, event, game_screen, game_is):
         '''
+        Calls an action function based on the the type of button being clicked, and/or updates the game state.
         '''
         if event.type == pygame.MOUSEBUTTONDOWN and self.check_click(event.pos):
             if self._shape == 'circle':
@@ -79,8 +86,7 @@ class Button():
                     return "paused"
                 elif game_is == "paused":
                     return "running"
-            elif self._shape == 'end' and self._rect.collidepoint(event.pos):
-                if game_is == "stopped":
-                    return "start over"
+            elif self._shape == 'end':
+                return "start over"
         return game_is
     
