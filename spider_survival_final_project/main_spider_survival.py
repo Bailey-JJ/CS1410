@@ -91,12 +91,26 @@ def game_loop():
                         button.handle_event(event, game_screen, game_is)
                     elif button._shape == 'rect':
                         game_is = button.handle_event(event, screen, game_is)
-            
+                        
+                    #Add this next sections logic into the handle_event function
+                    '''
+                    elif button._shape == 'rect' and start_game == False:
+                        game_is = button.handle_event(event, screen, game_is)
+                    '''
             
             
         #Actual playing game
         if game_is == "running":
-            bird_position = pygame.mouse.get_pos() 
+            bird_position = pygame.mouse.get_pos()
+            '''
+            start_game = False
+            
+            while not start_game:
+                gameui.draw_ui(screen, game_screen)
+                environment.display_current_stats(screen)
+                draw_buttons(buttons[:4], screen, 'Play Game', (700, 655))
+                if 
+            '''
             current_time = pygame.time.get_ticks()
             
             if current_time - last_repop_time >= repop_every and len(environment._spiders) < 30:
