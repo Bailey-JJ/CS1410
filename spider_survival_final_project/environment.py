@@ -42,7 +42,7 @@ class Environment():
         
 
         # Create spiders for each color
-        for _ in range(5):
+        for _ in range(2):
             self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
             self.population_counts['red'] += 1
             self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))

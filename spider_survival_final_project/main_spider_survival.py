@@ -2,8 +2,6 @@
 Author Name: Bailey Jannuzzi
 Module: main_spider_survival.py
 Description: Initializes Game UI and Environment, updates game, and then terminates game.
-
-    Possible changes: Create functions to create objects, to avoid repeating code? Need to use if statements and loops in code
 """
 import pygame
 from typing import Tuple
@@ -45,12 +43,14 @@ def initialize():
     
     return bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, start_time, last_repop_time, repop_every
 
+
 def draw_buttons(button_list, screen, text: str, coord: Tuple[int, int]):
     for button in button_list:
         if button._shape == 'circle':
             button.draw_circle_buttons(screen)
         elif button._shape == 'rect':
             button.draw_square_button(screen, text, coord)
+
 
 def game_loop():
     '''
@@ -64,12 +64,10 @@ def game_loop():
     game_is = "running"
     running = True
     while running:
-        # Event handling, gets all events from the event queue
         elapsed_seconds = (pygame.time.get_ticks() - (start_time + paused_time)) // 1000
         time_left = max(timer - elapsed_seconds, 0)
                 
         for event in pygame.event.get():
-            # Close the window when the user clicks the close button
             
             if game_is == "start over":
                 screen.fill((255, 255, 255))
