@@ -10,7 +10,7 @@ import pygame
 
 class Bird(Organism):
     '''
-    Concrete class, takes parameters for a bird's position, shape, and color. 
+    Concrete class, takes parameters for a bird's position and shape. 
     Contains methods:
         move()
         get_position()

@@ -30,12 +30,13 @@ class Environment():
         self.population_counts = {'red': 0,
                                   'green': 0,
                                   'blue': 0,}
-        
-    
     #End of constructor
     
     #Methods
     def initialize_population_counts(self):
+        '''
+        Sets game up by displaying a predetermined number of spiders.
+        '''
         green = pygame.image.load("clear_green_spider_resized.png")
         red = pygame.image.load("clear_red_spider_resized.png")
         blue = pygame.image.load("clear_blue_spider_resized.png")
@@ -104,6 +105,9 @@ class Environment():
 
 
     def display_game_over(self, screen):
+        '''
+        Displays the game over screen, containing the stats of the game.
+        '''
         font = pygame.font.SysFont('consolas', 32)
         font2 = pygame.font.SysFont('consolas', 20)
         
@@ -133,6 +137,9 @@ class Environment():
         
     
     def display_current_stats(self, screen):
+        '''
+        Displays current game stats.
+        '''
         font2 = pygame.font.SysFont('consolas', 20)
         
         red_alive = self.population_counts['red']

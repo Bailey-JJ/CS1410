@@ -10,7 +10,32 @@ from game_ui import GameUI
 from bird import Bird
 from button import Button
 
+def start_game():
+    while True:
+        #title_text = font_title.render("My Pygame Game", True, WHITE)
+        #instructions_text = font_instructions.render("Press SPACE to Start", True, WHITE)
+
+        # Center text on the screen
+        #title_rect = title_text.get_rect(center=(WIDTH // 2, HEIGHT // 3))
+        #instructions_rect = instructions_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+
+        # Blit text to the screen
+        #screen.blit(title_text, title_rect)
+        #screen.blit(instructions_text, instructions_rect)
+
+        # Update the display
+        pygame.display.flip()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                return
+
 def initialize():
+    '''
+    Initializes the game environment upon start/restart of the game.
+    '''
     bird = Bird()
     gameui = GameUI()
     environment = Environment()
@@ -45,6 +70,9 @@ def initialize():
 
 
 def draw_buttons(button_list, screen, text: str, coord: Tuple[int, int]):
+    '''
+    Draws buttons, based on their type.
+    '''
     for button in button_list:
         if button._shape == 'circle':
             button.draw_circle_buttons(screen)
@@ -107,7 +135,8 @@ def game_loop():
                 gameui.draw_ui(screen, game_screen)
                 environment.display_current_stats(screen)
                 draw_buttons(buttons[:4], screen, 'Play Game', (700, 655))
-                if 
+                if :
+                break
             '''
             current_time = pygame.time.get_ticks()
             
@@ -168,7 +197,11 @@ def game_loop():
 
 def main():
     pygame.init()
-
+    
+    pygame.display.set_caption("Spider Survival Game")
+    screen = pygame.display.set_mode((900, 700))
+    screen.fill((255, 255, 255))
+    
     while True:
         start_game = game_loop()
         if start_game == "quit":
@@ -178,4 +211,5 @@ def main():
     pygame.quit()
 
 if __name__ == "__main__":
+    start_game()
     main()

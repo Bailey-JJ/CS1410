@@ -12,13 +12,12 @@ import math
 
 class Spider(Organism):
     '''
-    Concrete class, takes parameters for a spider's position, shape, color, reaction speed, and movement speed.
+    Concrete class, takes parameters for a spider's position, shape, color, and movement speed.
     Contains methods:
         move()
         alive()
         get_position()
     '''
-    
     #Constructor
     def __init__(self, position: Tuple[int, int], shape: pygame.Surface, color: str, speed = None):
         super().__init__(position, shape)
@@ -40,7 +39,6 @@ class Spider(Organism):
             distance_to_bird = math.sqrt((spider_x - bird_x)**2 + (spider_y - bird_y)**2)
     
             if distance_to_bird <= 70:
-                #Evade logic: move away from the bird
                 dx = spider_x - bird_x
                 dy = spider_y - bird_y
     
@@ -66,7 +64,6 @@ class Spider(Organism):
             newy = 250
     
         self._position = (newx, newy)
-        
         
     
     def alive(self, surface):

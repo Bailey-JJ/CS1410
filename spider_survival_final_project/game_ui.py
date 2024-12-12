@@ -2,8 +2,6 @@
 Author Name: Bailey Jannuzzi
 Module: game_ui.py
 Description: 
-
-    Possible changes: Create functions to create objects, to avoid repeating code? Need to use if statements and loops in code.
 """
 
 import pygame
@@ -25,7 +23,6 @@ class GameUI():
         '''
         Sets up the screen with the basic non-interactable elements.
         '''
-        
         screen.fill((255, 255, 255))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(48, 248, 554, 439), 2)
 
@@ -67,7 +64,6 @@ class GameUI():
         speed_textRect.center = (815, 392)
         bck_textRect.center = (190, 142)
         
-        #speed_textRect.center = (750, 685)  #use for blue button
         
         screen.blit(game_screen, (50, 250))
         screen.blit(text, textRect)
