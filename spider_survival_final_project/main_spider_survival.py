@@ -10,27 +10,36 @@ from game_ui import GameUI
 from bird import Bird
 from button import Button
 
-def start_game():
+
+def game_start(screen, gameui, environment, game_screen, buttons, game_is, running):
+    begin_font = pygame.font.SysFont('consolas', 20)
+    gameui.draw_ui(screen, game_screen)
+    environment.display_current_stats(screen)
+    
     while True:
-        #title_text = font_title.render("My Pygame Game", True, WHITE)
-        #instructions_text = font_instructions.render("Press SPACE to Start", True, WHITE)
-
-        # Center text on the screen
-        #title_rect = title_text.get_rect(center=(WIDTH // 2, HEIGHT // 3))
-        #instructions_rect = instructions_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-
-        # Blit text to the screen
-        #screen.blit(title_text, title_rect)
-        #screen.blit(instructions_text, instructions_rect)
-
-        # Update the display
+        gameui.draw_ui(screen, game_screen)
+        draw_buttons(buttons[:3], screen)
+        
+        instructions_text = begin_font.render("Select a background color then,", True, (0, 0, 0))
+        instructions_text2 = begin_font.render("press SPACE to start", True, (0, 0, 0))
+        instructions_rect = instructions_text.get_rect(center=(325, 425))
+        instructions_rect2 = instructions_text2.get_rect(center=(325, 450))
+        screen.blit(instructions_text, instructions_rect)
+        screen.blit(instructions_text2, instructions_rect2)
+        
         pygame.display.flip()
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for button in buttons:
+                    if button.shape == 'circle':
+                        button.handle_event(event, game_screen, game_is)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                return
+                return "running", True
+    return game_is, True
+
 
 def initialize():
     '''
@@ -53,30 +62,28 @@ def initialize():
         Button('circle', (155, 191, 128), (70, 200), radius = 25),
         Button('circle', (223, 71, 61), (140, 200), radius = 25),
         Button('circle', (10, 158, 157), (210, 200), radius = 25),
-        Button('rect', (10, 158, 157), rect_position = (625, 640, 250, 50)),
+        Button('rect', (10, 158, 157), rect_position = (625, 540, 250, 50)),
         Button('end', (10, 158, 157), rect_position = (320, 480, 250, 50))
         ]
     
     clock = pygame.time.Clock()
-    timer = 15
+    timer = 1
     paused_start = None
     paused_time = 0
-    start_time = pygame.time.get_ticks()
-    last_repop_time = pygame.time.get_ticks()
     repop_every = 5000
     
     
-    return bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, start_time, last_repop_time, repop_every
+    return bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, repop_every
 
 
-def draw_buttons(button_list, screen, text: str, coord: Tuple[int, int]):
+def draw_buttons(button_list, screen, text: str = None, coord: Tuple[int, int] = None):
     '''
     Draws buttons, based on their type.
     '''
     for button in button_list:
-        if button._shape == 'circle':
+        if button.shape == 'circle':
             button.draw_circle_buttons(screen)
-        elif button._shape == 'rect':
+        elif button.shape == 'rect':
             button.draw_square_button(screen, text, coord)
 
 
@@ -85,25 +92,23 @@ def game_loop():
     Contains all game logic, so that main() can run the game on loop.
     ''' 
 
-    bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, start_time, last_repop_time, repop_every = initialize()
-    
+    bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, repop_every = initialize()
+
+    game_is = "not started"
+    running = False
     
     # Main loop
-    game_is = "running"
-    running = True
+    game_is, running = game_start(screen, gameui, environment, game_screen, buttons, game_is, running)
+    
+    start_time = pygame.time.get_ticks()
+    last_repop_time = pygame.time.get_ticks()
+    
     while running:
         elapsed_seconds = (pygame.time.get_ticks() - (start_time + paused_time)) // 1000
         time_left = max(timer - elapsed_seconds, 0)
                 
         for event in pygame.event.get():
-            
-            if game_is == "start over":
-                screen.fill((255, 255, 255))
-                pygame.display.update()
-                bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, start_time, last_repop_time, repop_every = initialize()
-                game_is = "running"
-                
-            
+                            
             if event.type == pygame.QUIT:
                 running = False
                 
@@ -111,36 +116,21 @@ def game_loop():
                 environment.remove_spiders(bird)
                 
                 for button in buttons:
-                    if button._shape == 'end' and game_is == "stopped":
+                    if button.shape == 'end' and game_is == "stopped":
                         game_is = button.handle_event(event, game_screen, game_is)
-                    elif button._shape == 'circle':
+                    elif button.shape == 'circle':
                         button.handle_event(event, game_screen, game_is)
-                    elif button._shape == 'rect':
+                    elif button.shape == 'rect':
                         game_is = button.handle_event(event, screen, game_is)
-                        
-                    #Add this next sections logic into the handle_event function
-                    '''
-                    elif button._shape == 'rect' and start_game == False:
-                        game_is = button.handle_event(event, screen, game_is)
-                    '''
-            
-            
+                
         #Actual playing game
         if game_is == "running":
+                    
             bird_position = pygame.mouse.get_pos()
-            '''
-            start_game = False
-            
-            while not start_game:
-                gameui.draw_ui(screen, game_screen)
-                environment.display_current_stats(screen)
-                draw_buttons(buttons[:4], screen, 'Play Game', (700, 655))
-                if :
-                break
-            '''
+
             current_time = pygame.time.get_ticks()
             
-            if current_time - last_repop_time >= repop_every and len(environment._spiders) < 30:
+            if current_time - last_repop_time >= repop_every and len(environment.spiders) < 30:
                 environment.repopulate()
                 last_repop_time = current_time
                 
@@ -154,13 +144,13 @@ def game_loop():
             bird.move(screen, bird_position)
             
                 
-            for spider in environment._spiders:
+            for spider in environment.spiders:
                 spider.move(bird_position)
                 spider.alive(screen)
             timer_text = gameui.font3.render(f"Time Remaining: {time_left}s", True, (0, 0, 0))
             screen.blit(timer_text, (450, 230)) 
             
-            draw_buttons(buttons[:4], screen, 'Pause Game', (700, 655))
+            draw_buttons(buttons[:4], screen, 'Pause Game', (700, 555))
             
             
         #Pausing the game
@@ -171,19 +161,26 @@ def game_loop():
             if paused_start is None:  
                 paused_start = pygame.time.get_ticks()
                 
-            draw_buttons(buttons, screen, 'Play Game', (700, 655))
+            draw_buttons(buttons, screen, 'Play Game', (700, 555))
+          
             
-            
-        #Initiating Game Over when time runs out
+        #Game Over screen    
         if time_left == 0 and game_is == "running":
             game_is = "stopped"
             
-            
-        #Game Over screen
         if game_is == "stopped":
             environment.display_game_over(screen)
             buttons[4].draw_square_button(screen, "Start Over", (390, 495))
-                
+            
+        if game_is == "start over":
+            screen.fill((255, 255, 255))
+            pygame.display.update()
+            bird, gameui, environment, screen, game_screen, buttons, clock, timer, paused_start, paused_time, repop_every = initialize()
+            
+            game_is, running = game_start(screen, gameui, environment, game_screen, buttons, game_is, running)
+            
+            start_time = pygame.time.get_ticks()
+            last_repop_time = pygame.time.get_ticks()
             
             
         pygame.display.flip()
@@ -198,10 +195,6 @@ def game_loop():
 def main():
     pygame.init()
     
-    pygame.display.set_caption("Spider Survival Game")
-    screen = pygame.display.set_mode((900, 700))
-    screen.fill((255, 255, 255))
-    
     while True:
         start_game = game_loop()
         if start_game == "quit":
@@ -211,5 +204,5 @@ def main():
     pygame.quit()
 
 if __name__ == "__main__":
-    start_game()
+    #start_game()
     main()

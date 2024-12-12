@@ -20,9 +20,7 @@ class Environment():
     
     #Constructor
     def __init__(self):
-        self._check_interval = 5 
-        self._last_check = pygame.time.get_ticks()
-        self._spiders = []
+        self.spiders = []
         self._dead_spiders = []
         self.dead_spiders_count = {'red': 0,
                              'green': 0,
@@ -44,11 +42,11 @@ class Environment():
 
         # Create spiders for each color
         for _ in range(2):
-            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
+            self.spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
             self.population_counts['red'] += 1
-            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))
+            self.spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))
             self.population_counts['green'] += 1
-            self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 1.5))
+            self.spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 1.5))
             self.population_counts['blue'] += 1
  
 
@@ -58,7 +56,7 @@ class Environment():
         '''
         bird_rect = bird.get_position()
         
-        for spider in self._spiders[:]:  
+        for spider in self.spiders[:]:  
             spider_rect = spider.get_position()
             
             if abs(bird_rect[0] - spider_rect[0]) < 20 and abs(bird_rect[1] - spider_rect[1]) < 20:
@@ -76,7 +74,7 @@ class Environment():
                     print('removed blue')
                     
                 self._dead_spiders.append(spider)
-                self._spiders.remove(spider)
+                self.spiders.remove(spider)
                 
                 
     def repopulate(self):
@@ -92,13 +90,13 @@ class Environment():
                 new_spiders = 1 * (count // 2)
                 for _ in range(new_spiders):
                     if color == 'red':
-                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
+                        self.spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), red, 'red', 1.2))
                         self.population_counts['red'] += 1
                     elif color == 'green':
-                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))
+                        self.spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), green, 'green', 1.8))
                         self.population_counts['green'] += 1
                     else:
-                        self._spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 1.5))
+                        self.spiders.append(Spider((random.randint(80, 570), random.randint(280, 695)), blue, 'blue', 1.5))
                         self.population_counts['blue'] += 1
             else:
                 return ''
@@ -148,11 +146,11 @@ class Environment():
         
         #Displaying current game stats on spider populations
         pop_text = font2.render(f"Red Spiders: {red_alive}", True, (0, 0, 0))
-        screen.blit(pop_text, (630, 180)) 
+        screen.blit(pop_text, (630, 365))
         pop_text2 = font2.render(f"Green Spiders: {green_alive}", True, (0, 0, 0))
-        screen.blit(pop_text2, (630, 230)) 
+        screen.blit(pop_text2, (630, 415)) 
         pop_text3 = font2.render(f"Blue Spiders: {blue_alive}", True, (0, 0, 0))
-        screen.blit(pop_text3, (630, 280)) 
+        screen.blit(pop_text3, (630, 465)) 
         
         
         

@@ -24,6 +24,9 @@ class Button():
         self._rect_fill = int(rect_position[3] / 2)
         self._rect = pygame.Rect(rect_position)
         
+    @property 
+    def shape(self):
+        return self._shape
         
     def change_background_color(self, game_screen):
         '''
@@ -60,12 +63,12 @@ class Button():
         '''
         Checks that the mouse's position overlaps with a button's area.
         '''
-        if self._shape == 'rect' or self._shape == 'end':
+        if self.shape == 'rect' or self.shape == 'end':
             x, y, width, height = self._position
             if x <= mouse_position[0] <= x + width and y <= mouse_position[1] <= y + height:
                 return True
         
-        elif self._shape == 'circle':
+        elif self.shape == 'circle':
             dist_squared = (mouse_position[0] - self._center[0])**2 + (mouse_position[1] - self._center[1])**2
             
             if dist_squared <= self._radius**2:
@@ -79,14 +82,14 @@ class Button():
         Calls an action function based on the the type of button being clicked, and/or updates the game state.
         '''
         if event.type == pygame.MOUSEBUTTONDOWN and self.check_click(event.pos):
-            if self._shape == 'circle':
+            if self.shape == 'circle':
                 self.change_background_color(game_screen)
-            elif self._shape == 'rect':
+            elif self.shape == 'rect':
                 if game_is == "running":
                     return "paused"
                 elif game_is == "paused":
                     return "running"
-            elif self._shape == 'end':
+            elif self.shape == 'end':
                 return "start over"
         return game_is
     

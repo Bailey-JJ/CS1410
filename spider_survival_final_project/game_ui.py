@@ -1,9 +1,8 @@
 """
 Author Name: Bailey Jannuzzi
 Module: game_ui.py
-Description: 
+Description: Constructs the basic layout of the game ie. all none interactable items.
 """
-
 import pygame
 
 class GameUI():
@@ -33,40 +32,29 @@ class GameUI():
         
         
         #Spider Population Square
-        pygame.draw.rect(screen, (155, 191, 128), pygame.Rect(625, 75, 250, 50), 25, 10, 10, 10, 10, 10)
-        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 75, 250, 50), 2, 10, 10, 10, 10, 10)
+        pygame.draw.rect(screen, (155, 191, 128), pygame.Rect(625, 260, 250, 50), 25, 10, 10, 10, 10, 10)
+        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 260, 250, 50), 2, 10, 10, 10, 10, 10)
 
-        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 140, 250, 200), 2) 
-        
-        
-        #Spider Speed? Optional?
-        pygame.draw.rect(screen, (155, 191, 128), pygame.Rect(625, 360, 250, 50), 25, 10, 10, 10, 10, 10) 
-        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 360, 250, 50), 2, 10, 10, 10, 10, 10)
-        
-        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 425, 250, 200), 2)
+        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(625, 325, 250, 200), 2) 
         
         
         #Game Title Display
         text = GameUI.font.render('Spider Survival', True, (0, 0, 0), (155, 191, 128))
         pop_text = GameUI.font2.render('Spider Population', True, (0, 0, 0), (155, 191, 128))
-        speed_text = GameUI.font2.render('Spider Speed', True, (0, 0, 0), (155, 191, 128))
         bck_text = GameUI.font2.render('Background Color', True, (0, 0, 0), (155, 191, 128))
     
     
         textRect = text.get_rect()
         pop_textRect = text.get_rect()
-        speed_textRect = text.get_rect()
         bck_textRect = text.get_rect()
          
         
         textRect.center = (450, 40)
-        pop_textRect.center = (790, 108)
-        speed_textRect.center = (815, 392)
+        pop_textRect.center = (790, 293)
         bck_textRect.center = (190, 142)
         
         
         screen.blit(game_screen, (50, 250))
         screen.blit(text, textRect)
         screen.blit(pop_text, pop_textRect)
-        screen.blit(speed_text, speed_textRect)
         screen.blit(bck_text, bck_textRect)

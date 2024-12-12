@@ -70,18 +70,5 @@ class Spider(Organism):
         '''
         Displays spider onto game screen.
         '''
-        surface.blit(self._shape, self._position)
-        
-        
-    def get_position(self):
-        '''
-        Concrete method that finds the center coordinates of a spider image, and returns those coordinates.
-        '''
-        width = self._shape.get_width()
-        height = self._shape.get_height()
-        
-        x = self._position[0] + width // 2
-        y = self._position[1] + height // 2
-
-        return x, y
+        surface.blit(self.shape, self._position)
     
